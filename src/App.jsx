@@ -179,7 +179,7 @@ function App() {
             <div className="image-glow"></div>
             <div className="image-frame">
               <img
-                src="/images/Chris.jpg"
+                src="/christechzard-portfolio/images/Chris.jpg"
                 alt="Chris Techzard"
                 className="profile-image"
               />
