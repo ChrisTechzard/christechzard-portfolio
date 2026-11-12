@@ -16,6 +16,10 @@ import {
 } from "lucide-react";
 import "./App.css";
 
+const email = "kenchriski0@gmail.com";
+const cvUrl = `${import.meta.env.BASE_URL}Christopher-Tettey-Omenyo-CV.pdf`;
+const profileImage = `${import.meta.env.BASE_URL}images/Chris.jpg`;
+
 const projects = [
   {
     number: "01",
@@ -41,8 +45,8 @@ const projects = [
     name: "Password Vault",
     category: "Python / Cybersecurity",
     description:
-      "A local password-vault project exploring encryption, secure credential storage and Python application development.",
-    stack: ["Python", "Scrypt", "Fernet"],
+      "A Python password-vault application currently being developed, exploring encryption, secure credential storage and desktop application development.",
+    stack: ["Python", "CustomTkinter", "Scrypt", "Fernet"],
     github: "",
   },
 ];
@@ -96,7 +100,15 @@ function App() {
         </button>
 
         <nav className={menuOpen ? "nav-links open" : "nav-links"}>
-          {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+          {[
+            "Home",
+            "About",
+            "Skills",
+            "Projects",
+            "Experience",
+            "Certifications",
+            "Contact",
+          ].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -105,8 +117,9 @@ function App() {
               {item}
             </a>
           ))}
+
           <a
-            href="mailto:YOUR_EMAIL@example.com"
+            href={`mailto:${email}`}
             className="nav-contact"
             onClick={closeMenu}
           >
@@ -116,6 +129,7 @@ function App() {
       </header>
 
       <main>
+        {/* HERO */}
         <section className="hero section" id="home">
           <div className="hero-content">
             <div className="availability">
@@ -138,17 +152,27 @@ function App() {
             </h2>
 
             <p className="hero-description">
-              I'm Omenyo Christopher Tettey, a Computer Engineering student, developer and technology
-              enthusiast exploring software development, cybersecurity,
-              artificial intelligence, IOT, the systems shaping our future and more.
+              I'm Omenyo Christopher Tettey, a Computer Engineering student,
+              developer and technology enthusiast exploring software
+              development, cybersecurity, artificial intelligence, IoT,
+              the systems shaping our future and more.
             </p>
 
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">
                 Explore my work <ArrowRight size={17} />
               </a>
+
               <a href="#contact" className="btn btn-secondary">
                 Get in touch <ArrowUpRight size={17} />
+              </a>
+
+              <a
+                href={cvUrl}
+                download="Christopher-Tettey-Omenyo-CV.pdf"
+                className="btn btn-secondary"
+              >
+                Download My CV <ArrowUpRight size={17} />
               </a>
             </div>
 
@@ -161,6 +185,7 @@ function App() {
               >
                 <CodeXml />
               </a>
+
               <a
                 href="https://www.youtube.com/@Techzardhub"
                 target="_blank"
@@ -169,7 +194,8 @@ function App() {
               >
                 <Video />
               </a>
-              <a href="mailto:YOUR_EMAIL@example.com" aria-label="Email">
+
+              <a href={`mailto:${email}`} aria-label="Email">
                 <Mail />
               </a>
             </div>
@@ -177,26 +203,31 @@ function App() {
 
           <div className="hero-image-area">
             <div className="image-glow"></div>
+
             <div className="image-frame">
               <img
-                src="/christechzard-portfolio/images/Chris.jpg"
+                src={profileImage}
                 alt="Chris Techzard"
                 className="profile-image"
               />
             </div>
+
             <div className="image-caption">
               <span>CHRIS TECHZARD</span>
               <span>LEARN. BUILD. SECURE.</span>
             </div>
+
             <div className="floating-tag tag-top">
               <span className="tag-dot"></span> Developer mindset
             </div>
+
             <div className="floating-tag tag-bottom">
               <Terminal size={16} /> Always building
             </div>
           </div>
         </section>
 
+        {/* ABOUT */}
         <section className="about section" id="about">
           <div className="section-heading">
             <p className="eyebrow">01 / GET TO KNOW ME</p>
@@ -212,12 +243,14 @@ function App() {
                 I get to learn, experiment, solve problems and turn ideas into
                 something useful.
               </p>
+
               <p>
                 I'm currently pursuing a BSc in Computer Engineering at
                 Ghana Communication Technology University (GCTU). Along the
                 way, I'm developing my skills through hands-on projects,
                 technical learning and community involvement.
               </p>
+
               <p>
                 Through Chris Techzard, I also share my learning journey and
                 make technology more accessible to other aspiring tech
@@ -233,6 +266,7 @@ function App() {
                   <p>Stay curious. Keep exploring.</p>
                 </div>
               </div>
+
               <div className="fact">
                 <span>02</span>
                 <div>
@@ -240,6 +274,7 @@ function App() {
                   <p>Turn knowledge into real projects.</p>
                 </div>
               </div>
+
               <div className="fact">
                 <span>03</span>
                 <div>
@@ -251,6 +286,7 @@ function App() {
           </div>
         </section>
 
+        {/* SKILLS */}
         <section className="skills section" id="skills">
           <div className="section-heading">
             <p className="eyebrow">02 / WHAT I EXPLORE</p>
@@ -266,6 +302,7 @@ function App() {
           <div className="skills-grid">
             {skills.map((skill) => {
               const Icon = skill.icon;
+
               return (
                 <article className="skill-card" key={skill.name}>
                   <Icon className="skill-icon" size={27} />
@@ -277,6 +314,7 @@ function App() {
           </div>
         </section>
 
+        {/* PROJECTS */}
         <section className="projects section" id="projects">
           <div className="section-heading">
             <p className="eyebrow">03 / SELECTED WORK</p>
@@ -294,15 +332,20 @@ function App() {
               <article className="project-card" key={project.number}>
                 <div className="project-top">
                   <span className="project-number">{project.number}</span>
-                  <span className="project-category">{project.category}</span>
+                  <span className="project-category">
+                    {project.category}
+                  </span>
                 </div>
+
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
+
                 <div className="tech-stack">
                   {project.stack.map((tech) => (
                     <span key={tech}>{tech}</span>
                   ))}
                 </div>
+
                 <div className="project-links">
                   {project.github && (
                     <a
@@ -313,6 +356,7 @@ function App() {
                       <CodeXml size={16} /> Source code
                     </a>
                   )}
+
                   {project.demo && (
                     <a
                       href={project.demo}
@@ -328,6 +372,7 @@ function App() {
           </div>
         </section>
 
+        {/* EXPERIENCE */}
         <section className="education section" id="experience">
           <div className="section-heading">
             <p className="eyebrow">04 / MY JOURNEY</p>
@@ -345,9 +390,24 @@ function App() {
                 Ghana Communication Technology University (GCTU)
               </p>
               <p>
-                Developing a foundation in computer engineering while
-                exploring software, systems, networking and cybersecurity
-                through practical work.
+                Level 200 student developing a foundation in computer
+                engineering while exploring software, systems, networking
+                and cybersecurity through practical work.
+              </p>
+            </div>
+          </div>
+
+          <div className="journey-card">
+            <div className="journey-marker"></div>
+            <div>
+              <span className="journey-date">PROFESSIONAL EXPERIENCE</span>
+              <h3>Intern — Electricity Company of Ghana (ECG)</h3>
+              <p className="journey-place">Two-month internship</p>
+              <p>
+                Assisted with basic electrical and technical operations,
+                routine system maintenance and networking troubleshooting
+                while gaining experience in a professional engineering
+                environment.
               </p>
             </div>
           </div>
@@ -366,18 +426,51 @@ function App() {
           </div>
         </section>
 
+        {/* CERTIFICATIONS */}
+        <section className="education section" id="certifications">
+          <div className="section-heading">
+            <p className="eyebrow">05 / PROFESSIONAL DEVELOPMENT</p>
+            <h2>
+              Certifications & <span>training.</span>
+            </h2>
+            <p className="section-intro">
+              Training and learning experiences contributing to my technical
+              development.
+            </p>
+          </div>
+
+          <div className="journey-card">
+            <div className="journey-marker"></div>
+            <div>
+              <span className="journey-date">2026</span>
+              <h3>Cybersecurity Training</h3>
+              <p className="journey-place">Thrive Africa</p>
+              <p>
+                Certificate of Completion — cybersecurity training.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* CONTACT */}
         <section className="contact section" id="contact">
-          <p className="eyebrow">05 / LET'S CONNECT</p>
+          <p className="eyebrow">06 / LET'S CONNECT</p>
+
           <h2>
             Have an idea?
             <br />
             <span>Let's make it happen.</span>
           </h2>
+
           <p>
             Interested in technology, collaboration, opportunities or simply
             having a meaningful conversation? I'd love to hear from you.
           </p>
-          <a href="mailto:YOUR_EMAIL@example.com" className="btn btn-primary">
+
+          <a
+            href={`mailto:${email}`}
+            className="btn btn-primary"
+          >
             Send me an email <Mail size={17} />
           </a>
 
@@ -389,6 +482,7 @@ function App() {
             >
               GitHub <ArrowUpRight size={15} />
             </a>
+
             <a
               href="https://www.youtube.com/@Techzardhub"
               target="_blank"
@@ -396,12 +490,29 @@ function App() {
             >
               YouTube <ArrowUpRight size={15} />
             </a>
+
             <a
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/in/christopher-omenyo-tettey-580a44374/"
               target="_blank"
               rel="noreferrer"
             >
               LinkedIn <ArrowUpRight size={15} />
+            </a>
+
+            <a
+              href="https://x.com/ChrisTechzard"
+              target="_blank"
+              rel="noreferrer"
+            >
+              X <ArrowUpRight size={15} />
+            </a>
+
+            <a
+              href="https://www.tiktok.com/@chris.techzard"
+              target="_blank"
+              rel="noreferrer"
+            >
+              TikTok <ArrowUpRight size={15} />
             </a>
           </div>
         </section>
@@ -411,7 +522,11 @@ function App() {
         <a href="#home" className="logo">
           CT<span>.</span>
         </a>
-        <p>© {new Date().getFullYear()} Chris Techzard. Built with purpose.</p>
+
+        <p>
+          © {new Date().getFullYear()} Chris Techzard. Built with purpose.
+        </p>
+
         <a href="#home" className="back-top">
           Back to top ↑
         </a>
