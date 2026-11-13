@@ -15,41 +15,74 @@ import {
   Blocks,
 } from "lucide-react";
 import "./App.css";
+import { projects } from "./data/projects";
+import { journey } from "./data/journey";
 
 const email = "kenchriski0@gmail.com";
 const cvUrl = `${import.meta.env.BASE_URL}Christopher-Tettey-Omenyo-CV.pdf`;
 const profileImage = `${import.meta.env.BASE_URL}images/Chris.jpg`;
 
-const projects = [
-  {
-    number: "01",
-    name: "Campus QR",
-    category: "Web Development",
-    description:
-      "A QR-based campus project designed to make accessing information simpler and more interactive.",
-    stack: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/ChrisTechzard/campus-qr",
-    demo: "https://christechzard.github.io/campus-qr/",
-  },
-  {
-    number: "02",
-    name: "KFC_AI",
-    category: "AI / Web Development",
-    description:
-      "An AI-powered meal and budget experience built around KFC Ghana's menu and local pricing.",
-    stack: ["HTML", "CSS", "JavaScript", "AI"],
-    demo: "https://ChrisTechzard.github.io/KFC_AI/",
-  },
-  {
-    number: "03",
-    name: "Password Vault",
-    category: "Python / Cybersecurity",
-    description:
-      "A Python password-vault application currently being developed, exploring encryption, secure credential storage and desktop application development.",
-    stack: ["Python", "CustomTkinter", "Scrypt", "Fernet"],
-    github: "",
-  },
-];
+function JourneyCard({ item }) {
+  const images = Array.isArray(item.images)
+    ? item.images
+    : item.image
+      ? [item.image]
+      : [];
+  const [failedImages, setFailedImages] = useState([]);
+  const [expanded, setExpanded] = useState(false);
+  const availableImages = images.filter((image) => !failedImages.includes(image));
+  const multiplePhotos = availableImages.length > 1;
+  const imageUrl = (image) => `${import.meta.env.BASE_URL}${image.replace(/^\//, "")}`;
+
+  return (
+    <article className={`journey-gallery-card${images.length ? "" : " no-photos"}`}>
+      {availableImages.length ? (
+        <div className="journey-photo-preview">
+          <img
+            src={imageUrl(availableImages[0])}
+            alt={`${item.title} photo`}
+            onError={() => setFailedImages((failed) => [...failed, availableImages[0]])}
+          />
+          {multiplePhotos && <span className="journey-photo-count">{availableImages.length} photos</span>}
+        </div>
+      ) : (
+        <div className="journey-image-placeholder"><span>PHOTO COMING SOON</span></div>
+      )}
+      <div className="journey-gallery-info">
+        <span className="journey-date">{item.date}</span>
+        <h3>{item.title}</h3>
+        <p className="journey-place">{item.place}</p>
+        <p className="journey-description">
+          {item.description || "More details about this experience will be added soon."}
+        </p>
+        {multiplePhotos && (
+          <button
+            className="journey-gallery-toggle"
+            type="button"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((open) => !open)}
+          >
+            {expanded ? "Hide photos" : `View all ${availableImages.length} photos`}
+            <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+          </button>
+        )}
+      </div>
+      {expanded && multiplePhotos && (
+        <div className="journey-photos">
+          {availableImages.slice(1).map((image, index) => (
+            <img
+              key={image}
+              src={imageUrl(image)}
+              alt={`${item.title} photo ${index + 2}`}
+              onError={() => setFailedImages((failed) => [...failed, image])}
+            />
+          ))}
+        </div>
+      )}
+    </article>
+  );
+}
+
 
 const skills = [
   {
@@ -106,6 +139,7 @@ function App() {
             "Skills",
             "Projects",
             "Experience",
+            "Journey",
             "Certifications",
             "Contact",
           ].map((item) => (
@@ -380,6 +414,22 @@ function App() {
               Learning. Growing. <span>Building.</span>
             </h2>
           </div>
+          {/* MY JOURNEY */}
+<section className="journey-gallery section" id="journey">
+  <div className="section-heading">
+    <p className="eyebrow">05 / BEYOND THE CLASSROOM</p>
+    <h2>My life in <span>moments.</span></h2>
+    <p className="section-intro">
+      Events, experiences, places and milestones shaping my journey.
+    </p>
+  </div>
+
+  <div className="journey-gallery-grid">
+    {journey.map((item) => (
+      <JourneyCard item={item} key={`${item.date}-${item.title}`} />
+    ))}
+  </div>
+</section>
 
           <div className="journey-card">
             <div className="journey-marker"></div>
